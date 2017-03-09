@@ -28,8 +28,10 @@ int main (int argc, char ** argv){
 //solucion de la ecuacion diferencial
 	float x_temp[N-1];
 	for(j = 0; j<T;j++){
-	  for(k = 0; k<N-1; k++){
-	    printf("%f\t%f\n",x[k],v[k]);
+	  if(j%10000 == 0 ){
+	    for(k = 0; k<N-1; k++){
+	      printf("%f\t%f\n",x[k],v[k]);
+	    } 
 	  }
 #pragma omp parallel for \shared(x,v)
 	  for(i = 1; i<N-1; i++){
