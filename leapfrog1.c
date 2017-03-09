@@ -25,7 +25,7 @@ int main (int argc, char ** argv){
 	  v[i] = 0.0; 
 	}
 
-//solucion de la ecuacion diferencial
+//solucion de la ecuacion diferencial con el metodo leapfrog
 	float x_temp[N-1];
 	for(j = 0; j<T;j++){
 	  if(j%10000 == 0 ){
