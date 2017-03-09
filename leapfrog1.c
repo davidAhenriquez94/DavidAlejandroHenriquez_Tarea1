@@ -29,7 +29,7 @@ int main (int argc, char ** argv){
 	float x_temp[N-1];
 	for(j = 0; j<T;j++){
 	  if(j%10000 == 0 ){
-	    for(k = 0; k<N-1; k++){
+	    for(k = 0; k<N; k++){
 	      printf("%f\t%f\n",x[k],v[k]);
 	    } 
 	  }
