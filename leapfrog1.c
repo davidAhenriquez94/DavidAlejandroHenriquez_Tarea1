@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <omp.h>
+#include <time.h>
 
 void leapfrog(float *x, float *v, int i,int j, float h , float B);
 
@@ -14,7 +15,7 @@ int main (int argc, char ** argv){
 //Creacion de variables posicion y velocidad
 	float *x = malloc(N*sizeof(float));
 	float *v = malloc(N*sizeof(float));
-	
+	clock_t start = clock();
 	x[0] = 0.0;
 	x[N-1] = 0.0;
 	v[0] = 0.0;
@@ -35,7 +36,8 @@ int main (int argc, char ** argv){
 	      printf("%f\t%f\n",x[k],v[k]);
 	    } 
 	  }
-#pragma omp parallel for shared(x,v)
+	clock_t start = clock();
+#pragma omp parallel for shared(x,v,x_temp)
 	  for(i = 1; i<N-1; i++){
 	    F_actual = x[i+1] - 2*x[i] + x[i-1] + B*(powf((x[i+1]-x[i]),2) - powf((x[i] - x[i-1]),2));
 	    v_medio = v[i] + (1.0/2)*dt*F_actual;
@@ -51,9 +53,11 @@ int main (int argc, char ** argv){
 	    v[n] = v_medio_temp[n] + (1.0/2)*dt*F_futuro;
 	  }
 	}
-
+clock_t finish = clock();
+double totaltime=(double)(finish - start) / CLOCKS_PER_SEC;
 	free(x);
 	free(v);
+printf("%f\n",totaltime);
 	return 0;
 }
 
