@@ -1,14 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-X1 =np.genfromtxt('datos1.txt', usecols=(0))
-V1 =np.genfromtxt('datos1.txt', usecols=(1))
+X1 =np.genfromtxt('datos1.txt', skip_footer=1, usecols=(0))
+V1 =np.genfromtxt('datos1.txt', skip_footer=1,usecols=(1))
 
-X2 =np.genfromtxt('datos2.txt', usecols=(0))
-V2 =np.genfromtxt('datos2.txt', usecols=(1))
+X2 =np.genfromtxt('datos2.txt', skip_footer=1, usecols=(0))
+V2 =np.genfromtxt('datos2.txt', skip_footer=1,usecols=(1))
 
-X4 =np.genfromtxt('datos4.txt', usecols=(0))
-V4 =np.genfromtxt('datos4.txt', usecols=(1))
+X4 =np.genfromtxt('datos4.txt', skip_footer=1, usecols=(0))
+V4 =np.genfromtxt('datos4.txt', skip_footer=1,usecols=(1))
 
 
 X1 = X1.reshape((1001,64))
@@ -38,7 +38,7 @@ def energia(k,X,V,t):
     dQ = np.sqrt(2.0/64)*np.dot(V[t],y)
     return (1.0/2.0)*(dQ**2+(w)*(Q**2));
 
-for i in range(0,999):
+for i in range(0,1000):
 	E11[i]=energia(1,X1,V1,i)
 	E21[i]=energia(2,X1,V1,i)
 	E31[i]=energia(3,X1,V1,i)
@@ -48,14 +48,13 @@ for i in range(0,999):
 	E14[i]=energia(1,X4,V4,i)
 	E24[i]=energia(2,X4,V4,i)
 	E34[i]=energia(3,X4,V4,i)
-plt.subplot(3,1,1)
 
+plt.subplot(3,1,1)
 plt.scatter(Times,E11, color = "blue",label="k=1")
 plt.scatter(Times,E21, color = "red",label="k=2")
 plt.scatter(Times,E31, color = "black",label="k=3")
 plt.title('Numero de procesadores = 1')
 plt.ylabel('E_k')
-plt.xlabel('tiempo')
 
 plt.subplot(3,1,2)
 plt.scatter(Times,E12, color = "blue",label="k=1")
@@ -63,7 +62,6 @@ plt.scatter(Times,E22, color = "red",label="k=2")
 plt.scatter(Times,E32, color = "black",label="k=3")
 plt.title('Numero de procesadores = 2')
 plt.ylabel('E_k')
-plt.xlabel('tiempo')
 
 plt.subplot(3,1,3)
 plt.scatter(Times,E14, color = "blue",label="k=1")
@@ -72,7 +70,7 @@ plt.scatter(Times,E34, color = "black",label="k=3")
 plt.title('Numero de procesadores = 4')
 plt.ylabel('E_k')
 plt.xlabel('tiempo')
-plt.show()
+#plt.show()
 
 filename = 'energia' 
 plt.savefig(filename + '.pdf',format = 'pdf')
