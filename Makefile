@@ -1,3 +1,6 @@
+tiempo.pdf:energia.pdf
+	python time.py
+
 energia.pdf: datos1.txt datos2.txt datos4.txt
 	python graficador.py
 
