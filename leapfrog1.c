@@ -35,7 +35,7 @@ int main (int argc, char ** argv){
 	      printf("%f\t%f\n",x[k],v[k]);
 	    } 
 	  }
-#pragma omp parallel for shared(x,v,v_medio,x_temp,F_actual,v_medio_temp)
+#pragma omp parallel for shared(x,v)
 	  for(i = 1; i<N-1; i++){
 	    F_actual = x[i+1] - 2*x[i] + x[i-1] + B*(powf((x[i+1]-x[i]),2) - powf((x[i] - x[i-1]),2));
 	    v_medio = v[i] + (1.0/2)*dt*F_actual;
@@ -45,7 +45,7 @@ int main (int argc, char ** argv){
 	  for(m = 1; m<N-1; m++){
 	    x[m] = x_temp[m];
 	  }
-#pragma omp parallel for shared(x,v,F_futuro,v_medio_temp)
+#pragma omp parallel for shared(x,v)
 	  for(n = 1; n<N-1; n++){
 	    F_futuro = x[n+1] - 2*x[n] + x[n-1] + B*(powf((x[n+1]-x[n]),3) - powf((x[n] - x[n-1]),3));
 	    v[n] = v_medio_temp[n] + (1.0/2)*dt*F_futuro;
